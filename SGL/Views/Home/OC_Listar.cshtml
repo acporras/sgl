@@ -1,4 +1,5 @@
-﻿
+﻿@using SGL.Models;
+
 <div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
@@ -6,7 +7,33 @@
             Listar Órdenes de Compra
         </div>
         <div class="card-body">
-            
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Fecha</th>
+                            <th>Programa</th>
+                            <th>Unidad</th>
+                            <th>Planta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (OC oc in ViewBag.lista_OC)
+                            {
+                                <tr>
+                                    <td>@oc.codOC</td>
+                                    <td>@oc.fecha</td>
+                                    <td>@oc.programa</td>
+                                    <td>@oc.unidad</td>
+                                    <td>@oc.planta SP 97</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer small text-muted">Actualizado ayer a las 5:00 PM</div>
     </div>

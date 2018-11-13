@@ -16,7 +16,6 @@ namespace SGL.Controllers
         public ActionResult Facturas_Subir() { return View(); }
         public ActionResult OP_Listar() { return View(); }
         public ActionResult OP_Subir() { return View(); }
-        public ActionResult OC_Listar() { return View(); }
         public ActionResult OC_Generar() { return View(); }
 
 
@@ -61,5 +60,15 @@ namespace SGL.Controllers
             return View("Login");
         }
 
+        public ActionResult OC_Listar()
+        {
+            using (Entities obj = new Entities())
+            {
+                var x = obj.OC;
+                List<OC> lista_OC = x.ToList();
+                ViewBag.lista_OC = lista_OC;
+                return View();
+            }
+        }
     }
 }
