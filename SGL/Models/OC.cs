@@ -14,13 +14,10 @@ namespace SGL.Models
     
     public partial class OC
     {
-        public string codOP { get; set; }
+        public string codOC { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
+        public string programa { get; set; }
         public string unidad { get; set; }
         public string planta { get; set; }
-        public Nullable<int> scop { get; set; }
-        public string estacion { get; set; }
-        public Nullable<int> galones { get; set; }
-        public string octanaje { get; set; }
     }
 }

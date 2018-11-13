@@ -19,5 +19,7 @@ namespace SGL.Models
         public string codDoc { get; set; }
         public string tipoDoc { get; set; }
         public string modificacion { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
+        public Nullable<System.TimeSpan> hora { get; set; }
     }
 }

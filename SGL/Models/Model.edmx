@@ -7,20 +7,22 @@
       <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="detalleOC">
           <Key>
-            <PropertyRef Name="codOC" />
+            <PropertyRef Name="codFactura" />
           </Key>
-          <Property Name="codOC" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="codFactura" Type="varchar" MaxLength="50" />
+          <Property Name="codFactura" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="codOC" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="edicion">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
           <Property Name="numero" Type="int" Nullable="false" />
-          <Property Name="codUsuario" Type="varchar" MaxLength="15" />
+          <Property Name="codUsuario" Type="varchar" MaxLength="50" />
           <Property Name="codDoc" Type="varchar" MaxLength="50" />
           <Property Name="tipoDoc" Type="varchar" MaxLength="50" />
           <Property Name="modificacion" Type="varchar" MaxLength="50" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="hora" Type="time" Precision="7" />
         </EntityType>
         <EntityType Name="factura">
           <Key>
@@ -30,23 +32,20 @@
           <Property Name="fecha" Type="date" />
           <Property Name="unidad" Type="varchar" MaxLength="50" />
           <Property Name="planta" Type="varchar" MaxLength="50" />
-          <Property Name="scop" Type="int" />
+          <Property Name="scop" Type="varchar" MaxLength="50" />
           <Property Name="galones" Type="int" />
           <Property Name="octanaje" Type="varchar" MaxLength="50" />
           <Property Name="monto" Type="float" />
         </EntityType>
         <EntityType Name="OC">
           <Key>
-            <PropertyRef Name="codOP" />
+            <PropertyRef Name="codOC" />
           </Key>
-          <Property Name="codOP" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="codOC" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fecha" Type="date" />
+          <Property Name="programa" Type="varchar" MaxLength="50" />
           <Property Name="unidad" Type="varchar" MaxLength="50" />
           <Property Name="planta" Type="varchar" MaxLength="50" />
-          <Property Name="scop" Type="int" />
-          <Property Name="estacion" Type="varchar" MaxLength="50" />
-          <Property Name="galones" Type="int" />
-          <Property Name="octanaje" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OP">
           <Key>
@@ -56,7 +55,7 @@
           <Property Name="fecha" Type="date" />
           <Property Name="unidad" Type="varchar" MaxLength="50" />
           <Property Name="planta" Type="varchar" MaxLength="50" />
-          <Property Name="scop" Type="int" />
+          <Property Name="scop" Type="varchar" MaxLength="50" />
           <Property Name="estacion" Type="varchar" MaxLength="50" />
           <Property Name="galones" Type="int" />
           <Property Name="octanaje" Type="varchar" MaxLength="50" />
@@ -86,20 +85,22 @@
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="detalleOC">
           <Key>
-            <PropertyRef Name="codOC" />
+            <PropertyRef Name="codFactura" />
           </Key>
-          <Property Name="codOC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="codFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codOC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="edicion">
           <Key>
             <PropertyRef Name="numero" />
           </Key>
           <Property Name="numero" Type="Int32" Nullable="false" />
-          <Property Name="codUsuario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="codUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="codDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="tipoDoc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="modificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="hora" Type="Time" Precision="7" />
         </EntityType>
         <EntityType Name="factura">
           <Key>
@@ -109,23 +110,20 @@
           <Property Name="fecha" Type="DateTime" Precision="0" />
           <Property Name="unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="planta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="scop" Type="Int32" />
+          <Property Name="scop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="galones" Type="Int32" />
           <Property Name="octanaje" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="monto" Type="Double" />
         </EntityType>
         <EntityType Name="OC">
           <Key>
-            <PropertyRef Name="codOP" />
+            <PropertyRef Name="codOC" />
           </Key>
-          <Property Name="codOP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codOC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="programa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="planta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="scop" Type="Int32" />
-          <Property Name="estacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="galones" Type="Int32" />
-          <Property Name="octanaje" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="OP">
           <Key>
@@ -135,7 +133,7 @@
           <Property Name="fecha" Type="DateTime" Precision="0" />
           <Property Name="unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="planta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="scop" Type="Int32" />
+          <Property Name="scop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="estacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="galones" Type="Int32" />
           <Property Name="octanaje" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -167,8 +165,8 @@
           <EntitySetMapping Name="detalleOC">
             <EntityTypeMapping TypeName="Model.detalleOC">
               <MappingFragment StoreEntitySet="detalleOC">
-                <ScalarProperty Name="codOC" ColumnName="codOC" />
                 <ScalarProperty Name="codFactura" ColumnName="codFactura" />
+                <ScalarProperty Name="codOC" ColumnName="codOC" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -180,6 +178,8 @@
                 <ScalarProperty Name="codDoc" ColumnName="codDoc" />
                 <ScalarProperty Name="tipoDoc" ColumnName="tipoDoc" />
                 <ScalarProperty Name="modificacion" ColumnName="modificacion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -200,14 +200,11 @@
           <EntitySetMapping Name="OC">
             <EntityTypeMapping TypeName="Model.OC">
               <MappingFragment StoreEntitySet="OC">
-                <ScalarProperty Name="codOP" ColumnName="codOP" />
+                <ScalarProperty Name="codOC" ColumnName="codOC" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="programa" ColumnName="programa" />
                 <ScalarProperty Name="unidad" ColumnName="unidad" />
                 <ScalarProperty Name="planta" ColumnName="planta" />
-                <ScalarProperty Name="scop" ColumnName="scop" />
-                <ScalarProperty Name="estacion" ColumnName="estacion" />
-                <ScalarProperty Name="galones" ColumnName="galones" />
-                <ScalarProperty Name="octanaje" ColumnName="octanaje" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

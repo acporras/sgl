@@ -18,7 +18,7 @@ namespace SGL.Models
         public Nullable<System.DateTime> fecha { get; set; }
         public string unidad { get; set; }
         public string planta { get; set; }
-        public Nullable<int> scop { get; set; }
+        public string scop { get; set; }
         public string estacion { get; set; }
         public Nullable<int> galones { get; set; }
         public string octanaje { get; set; }

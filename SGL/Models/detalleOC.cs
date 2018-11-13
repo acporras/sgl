@@ -14,7 +14,7 @@ namespace SGL.Models
     
     public partial class detalleOC
     {
-        public string codOC { get; set; }
         public string codFactura { get; set; }
+        public string codOC { get; set; }
     }
 }

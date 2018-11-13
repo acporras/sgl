@@ -14253,7 +14253,6 @@
 							},
 							"name": "codOC",
 							"length": 0,
-							"primaryKey": true,
 							"foreignKey": true
 						},
 						{
