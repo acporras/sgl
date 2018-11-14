@@ -9,14 +9,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col align-content-start">
-                        @using (Html.BeginForm())
+
+                        @using (Html.BeginForm("Facturas_Subir", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             <div class="form-group">
-                                <label for="subirfacturas">Subir paquete de Facturas en Formato ZIP</label>
-                                <input type="file" class="form-control-file" id="subirfacturas">
+                                <label>Subir paquete de Facturas en Formato ZIP</label>
+                                @Html.TextBox("file", "", new { type = "file" }) <br />
                             </div>
-                            <button class="btn btn-secondary btn-block" type="submit">Subir</button>
+                                <input class="btn btn-secondary btn-block" type="submit" value="Subir" />
+                                @ViewBag.Message
                         }
+
                     </div>
                     <div class="col"></div>
                     <div class="col"></div>
