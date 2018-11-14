@@ -69,6 +69,16 @@ namespace SGL.Controllers
                 
             }
 
+            eliminar_archivos_servidor();
+
+            // Devuelve Array de Facturas
+
+            return paquete_factura;
+
+        }
+
+        public void eliminar_archivos_servidor()
+        {
             // Elimina todo el contenido en la carpeta UploadedFiles
 
             System.IO.DirectoryInfo di = new DirectoryInfo(servidor);
@@ -80,24 +90,20 @@ namespace SGL.Controllers
             {
                 dir.Delete(true);
             }
-
-            // Devuelve Array de Facturas
-
-            return paquete_factura;
-
         }
+        
 
         public void subir_facturas()
-        {
-            using (Entities obj = new Entities())
-            {
-                foreach (factura factura in paquete_factura)
                 {
-                    obj.factura.Add(factura);
+                    using (Entities obj = new Entities())
+                    {
+                        foreach (factura factura in paquete_factura)
+                        {
+                            obj.factura.Add(factura);
+                        }
+                        obj.SaveChanges();
+                    }
                 }
-                obj.SaveChanges();
-            }
-        }
 
         public List<OP> excel()
         {
@@ -128,6 +134,9 @@ namespace SGL.Controllers
 
             workbook.Close();
             excel.Quit();
+
+            eliminar_archivos_servidor();
+
             return paquete_OP;
         }
 
