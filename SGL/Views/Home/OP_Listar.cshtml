@@ -19,21 +19,23 @@
                             <th>Estación</th>
                             <th>Galones</th>
                             <th>Octanaje</th>
+                            <th>Opción</th>
                         </tr>
                     </thead>
                     <tbody>
                         @{
-                            foreach (OP oc in ViewBag.lista_OP)
+                            foreach (OP op in ViewBag.lista_OP)
                             {
                         <tr>
-                            <td>@oc.codOP</td>
-                            <td>@oc.fecha.ToString().Substring(0, 11)</td>
-                            <td>@oc.unidad</td>
-                            <td>@oc.planta</td>
-                            <td>@oc.scop</td>
-                            <td>@oc.estacion</td>
-                            <td>@oc.galones</td>
-                            <td>@oc.octanaje</td>
+                            <td>@op.codOP</td>
+                            <td>@op.fecha.ToString().Substring(0, 11)</td>
+                            <td>@op.unidad</td>
+                            <td>@op.planta</td>
+                            <td>@op.scop</td>
+                            <td>@op.estacion</td>
+                            <td>@op.galones</td>
+                            <td>@op.octanaje</td>
+                            <td>@Html.ActionLink("Eliminar", "Eliminar_OP", "Home", op, new { @class = " " })</td>
                         </tr>
                             }
                         }

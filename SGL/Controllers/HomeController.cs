@@ -75,6 +75,36 @@ namespace SGL.Controllers
             }
         }
 
+        public ActionResult Eliminar_OP(OP OP_pas)
+        {
+            // Validacion de ingreso
+            usuario usuario = (usuario)Session["Usuario"];
+            if (usuario == null) return RedirectToAction("Login");
+
+            using (Entities obj = new Entities())
+            {
+                var x = from op in obj.OP
+                        where op.codOP.Equals(OP_pas.codOP)
+                        select op;
+
+                OP objetivo = x.ToList().ElementAt(0);
+
+                edicion edit = new edicion();
+                edit.numero = obj.edicion.ToList().Last().numero + 1;
+                edit.codDoc = objetivo.codOP;
+                edit.codUsuario = usuario.codUsuario;
+                edit.tipoDoc = "OP";
+                edit.modificacion = "eliminacion";
+                edit.fecha = DateTime.Today;
+                edit.hora = DateTime.Now.TimeOfDay;
+                obj.edicion.Add(edit);
+
+                obj.OP.Remove(objetivo);
+                obj.SaveChanges();
+                return RedirectToAction("OP_Listar");
+            }
+        }
+
         [HttpPost]
         public ActionResult Login(string usuario, string password)
         {
@@ -241,7 +271,66 @@ namespace SGL.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult OP_Subir(HttpPostedFileBase file)
+        {
+            // Validacion de ingreso
+            usuario usuario = (usuario)Session["Usuario"];
+            if (usuario == null) return RedirectToAction("Login");
+
+            try
+            {
+                // Coloca archivo ZIP en directorio del servidor
+                string servidor = Server.MapPath("~/UploadedFiles");
+                string _FileName = Path.GetFileName(file.FileName);
+                string _path = Path.Combine(servidor, _FileName);
+                file.SaveAs(_path);
+
+                // Leer archivo ZIP en UploadedFiles y extra información de los XML
+                Lector lector = new Lector(servidor, _path);
+                List<OP> lista_OP = lector.excel();
+                ViewBag.lista_OP = lista_OP;
+
+                //Sube las facturas a la BD
+                lector.subir_OP();
+                ViewBag.message = "Órdenes de pedido subidas exitosamente.";
+
+
+                // Guarda edicion de cambios en BD y retorna vista
+                using (Entities obj = new Entities())
+                {
+                    foreach (OP op in lista_OP)
+                    {
+                        edicion edit = new edicion();
+                        edit.numero = obj.edicion.ToList().Last().numero + 1;
+                        edit.codDoc = op.codOP;
+                        edit.codUsuario = usuario.codUsuario;
+                        edit.tipoDoc = "OP";
+                        edit.modificacion = "creacion";
+                        edit.fecha = DateTime.Today;
+                        edit.hora = DateTime.Now.TimeOfDay;
+                        obj.edicion.Add(edit);
+                        obj.SaveChanges();
+                    }
+                    return View();
+                }
+            }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException e)
+            {
+                ViewBag.Message = "Algunas de las facturas ya han sido subidas al servidor.";
+                return View();
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message = "Tipo de error: " + e.GetType() + "Mensaje: " + e.Message;
+                return View();
+            }
+        }
+
     }
+
+
 
     
 }

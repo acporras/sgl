@@ -1,28 +1,39 @@
-﻿
-<div class="container-fluid">
+﻿<div class="container-fluid">
     <div class="card mb-3">
         <div class="card-header">
-            <i class="fas fa-truck"></i>
+            <i class="fas fa-file"></i>
             Subir Órdenes de Pedido
         </div>
         <div class="card-body">
             <div class="container">
                 <div class="row">
-                    <div class="col">
-                        @using (Html.BeginForm())
+                    <div class="col align-content-start">
+
+                        @using (Html.BeginForm("OP_Subir", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
                             <div class="form-group">
-                                <label for="subirOP">Subir Órdenes de Pedido en Excel</label>
-                                <input type="file" class="form-control-file" id="subirOP">
+                                <label>Subir Órdenes de Pedido en archivo Excel</label>
+                                @Html.TextBox("file", "", new { type = "file" }) <br />
                             </div>
-                            <button class="btn btn-primary btn-block" type="submit">Subir</button>
+                            <input class="btn btn-secondary btn-block" type="submit" value="Subir" />
+                            @ViewBag.Message
                         }
+
                     </div>
                     <div class="col"></div>
                     <div class="col"></div>
                 </div>
+
+                <div class="row">
+                    <div class="col align-content-start">
+                        <a class="d-block small mt-3">@ViewBag.Response</a>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                </div>
+
             </div>
         </div>
-        <div class="card-footer small text-muted">Actualizado ayer a las 5:00 PM</div>
     </div>
+    <div class="card-footer small text-muted">Actualizado ayer a las 5:00 PM</div>
 </div>

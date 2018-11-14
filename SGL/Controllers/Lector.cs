@@ -17,13 +17,14 @@ namespace SGL.Controllers
     public class Lector
     {
         string servidor;
-        string zip;
-        List<factura> paquete = new List<factura>();
+        string archivo;
+        List<factura> paquete_factura = new List<factura>();
+        List<OP> paquete_OP = new List<OP>();
 
-        public Lector(string servidor, string zip)
+        public Lector(string servidor, string archivo)
         {
             this.servidor = servidor;
-            this.zip = zip;
+            this.archivo = archivo;
         }
 
 
@@ -31,11 +32,11 @@ namespace SGL.Controllers
         {
             // Descomprime ZIP
 
-            System.IO.Compression.ZipFile.ExtractToDirectory(zip, servidor);
+            System.IO.Compression.ZipFile.ExtractToDirectory(archivo, servidor);
 
             // Extrae informacion de Facturas en XML
 
-            paquete = new List<factura>();
+            paquete_factura = new List<factura>();
             string[] grupofac = Directory.GetFiles(servidor, "*.xml");
 
             foreach (string file in grupofac)
@@ -64,7 +65,7 @@ namespace SGL.Controllers
                 factura.scop = scop;
                 factura.galones = int.Parse(galones);
 
-                paquete.Add(factura);
+                paquete_factura.Add(factura);
                 
             }
 
@@ -82,7 +83,7 @@ namespace SGL.Controllers
 
             // Devuelve Array de Facturas
 
-            return paquete;
+            return paquete_factura;
 
         }
 
@@ -90,9 +91,53 @@ namespace SGL.Controllers
         {
             using (Entities obj = new Entities())
             {
-                foreach (factura factura in paquete)
+                foreach (factura factura in paquete_factura)
                 {
                     obj.factura.Add(factura);
+                }
+                obj.SaveChanges();
+            }
+        }
+
+        public List<OP> excel()
+        {
+            Excel.Application excel = new Excel.Application();
+            Excel.Workbook workbook = excel.Workbooks.Open(archivo);
+            Excel._Worksheet sheet = workbook.Sheets[1];
+
+
+            int row = 12;
+            var current_cell = sheet.Cells[row, 9].Value;
+
+            while (current_cell != null)
+            {
+                OP op = new OP();
+                op.codOP = sheet.Cells[row, 10].Value;
+                op.fecha = sheet.Cells[row, 12].Value;
+                op.unidad = sheet.Cells[row, 3].Value;
+                op.planta = sheet.Cells[row, 8].Value;
+                op.scop = sheet.Cells[row, 9].Value.ToString();
+                op.estacion = sheet.Cells[row, 5].Value;
+                op.galones = (int)sheet.Cells[row, 7].Value;
+                op.octanaje = sheet.Cells[row, 6].Value;
+                paquete_OP.Add(op);
+                row++;
+                if (row == 20) { break; }
+                current_cell = sheet.Cells[row, 9].Value;
+            }
+
+            workbook.Close();
+            excel.Quit();
+            return paquete_OP;
+        }
+
+        public void subir_OP()
+        {
+            using (Entities obj = new Entities())
+            {
+                foreach (OP op in paquete_OP)
+                {
+                    obj.OP.Add(op);
                 }
                 obj.SaveChanges();
             }

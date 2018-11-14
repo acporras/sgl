@@ -36,7 +36,6 @@
                                 <td>@fac.galones</td>
                                 <td>@fac.octanaje</td>
                                 <td>@fac.monto</td>
-                                @*<a href="@Url.Action("Eliminar_Factura","Home")?@fac.codFactura">Eliminar</a>*@
                                 <td>@Html.ActionLink("Eliminar", "Eliminar_Factura", "Home", fac, new { @class = " " })</td>
                             </tr>
                                 }
