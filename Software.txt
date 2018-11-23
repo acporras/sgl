@@ -1,2 +1,0 @@
-https://github.com/Andres088/sgl-depcom
-https://sgl-depcom-pnp.azurewebsites.net/
