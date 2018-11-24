@@ -1,0 +1,179 @@
+﻿@using SGL.Models;
+@{ 
+    OC oc = ViewBag.OC;
+    double monto_total = 0;
+    foreach (factura fac in ViewBag.facturasOC)
+    {
+        monto_total += (double)fac.monto; 
+    }
+}
+
+<div class="container-fluid">
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Generación de Órdenes de Compra: <b>Seleccionar facturas</b> para nueva OC
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Fecha</th>
+                            <th>Unidad</th>
+                            <th>Planta</th>
+                            <th>Galones</th>
+                            <th>Octanaje</th>
+                            <th>Monto</th>
+                            <th>Opción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (factura fac in ViewBag.lista_facturas)
+                            {
+                                <tr>
+                                    <td>@fac.codFactura</td>
+                                    <td>@fac.fecha.ToString().Substring(0, 11)</td>
+                                    <td>@fac.unidad</td>
+                                    <td>@fac.planta</td>
+                                    <td>@fac.galones</td>
+                                    <td>@fac.octanaje</td>
+                                    <td>@fac.monto</td>
+                                    <td>@Html.ActionLink("Agregar", "OC_Agregar_Facturas", "Home", fac, new { @class = " " })</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Generación de Órdenes de Compra: <b>Facturas seleccionadas</b> para nueva OC
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Fecha</th>
+                            <th>Unidad</th>
+                            <th>Planta</th>
+                            <th>SCOP</th>
+                            <th>Galones</th>
+                            <th>Octanaje</th>
+                            <th>Monto</th>
+                            <th>Opción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (factura fac in ViewBag.facturasOC)
+                            {
+                                <tr>
+                                    <td>@fac.codFactura</td>
+                                    <td>@fac.fecha.ToString().Substring(0, 11)</td>
+                                    <td>@fac.unidad</td>
+                                    <td>@fac.planta</td>
+                                    <td>@fac.scop</td>
+                                    <td>@fac.galones</td>
+                                    <td>@fac.octanaje</td>
+                                    <td>@fac.monto</td>
+                                    <td>@Html.ActionLink("Quitar", "OC_Quitar_Facturas", "Home", fac, new { @class = " " })</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Generación de Órdenes de Compra: <b>Completar información</b> para nueva OC
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="card card-login mx-auto mt-5">
+                    <div class="card-body">
+
+                        @using (Html.BeginForm())
+                        {
+                            <div class="form-group">
+                                <p><b>Fecha</b></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <input type="text" id="fecha" class="form-control" placeholder="fecha" name="fecha" readonly>
+                                    <label for="fecha">@oc.fecha.ToString().Substring(0, 10)</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><b>Código</b></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <input type="text" id="codigo" class="form-control" placeholder="codigo" name="codigo" readonly>
+                                    <label for="codigo">@oc.codOC</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><b>Unidad</b></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <input type="text" id="unidad" class="form-control" placeholder="unidad" name="unidad" readonly>
+                                    <label for="unidad">@oc.unidad</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><b>Planta</b></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <input type="text" id="planta" class="form-control" placeholder="planta" name="planta" readonly>
+                                    <label for="planta">@oc.planta</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><b>Programa</b></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <input type="text" id="programa" class="form-control" placeholder="programa" name="programa">
+                                    <label for="programa">@oc.programa</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><b>Monto Total</b></p>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <input type="text" id="monto_total" class="form-control" placeholder="monto_total" name="monto_total" readonly>
+                                    <label for="monto_total">@monto_total</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p><b></b></p>
+                            </div>
+                            <button class="btn btn-secondary btn-block" type="submit">Generar</button>
+                        }
+                        <div class="text-center">
+                            <a class="d-block small mt-3" href="#">@ViewBag.Response</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</div>
